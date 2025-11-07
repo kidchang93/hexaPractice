@@ -23,13 +23,13 @@ spring:
           batch_size: 20
         order_inserts: true
         order_updates: true
-    open-in-view: false
+    open-in-view: true
 
 # 로깅 설정
 logging:
   level:
-    com.example.hexapractice: DEBUG
-    org.hibernate.SQL: DEBUG
+    com.example.hexapractice: INFO
+    org.hibernate.SQL: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 # Server 설정
