@@ -2,7 +2,11 @@ package com.example.hexapractice.domain
 
 import java.math.BigDecimal
 
-
+/**
+ * 도메인 엔티티는 비즈니스 규칙을 지키도록 non-null 상태를 유지 하는게 좋음.
+ * 안그러면 규칙이 모호해짐. 여기서 nullable 하게 처리했는데 id 는 반드시 있어야한다.
+ * 이러면 말이 안되니까.
+ */
 data class KTLProduct(
     val id: Long,
     val name: String,
