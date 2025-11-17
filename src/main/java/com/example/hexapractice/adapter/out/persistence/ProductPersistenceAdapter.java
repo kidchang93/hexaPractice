@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import com.example.hexapractice.application.port.out.DeleteProductPort;
@@ -13,6 +14,7 @@ import com.example.hexapractice.domain.Product;
 
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ProductPersistenceAdapter implements LoadProductPort, SaveProductPort, DeleteProductPort {
@@ -48,6 +50,9 @@ public class ProductPersistenceAdapter implements LoadProductPort, SaveProductPo
     public Product save(Product product) {
         ProductJpaEntity entity = productMapper.toEntity(product);
         ProductJpaEntity savedEntity = productJpaRepository.save(entity);
+
+        log.info("entity : {}", entity);
+        log.info("savedEntity : {}", savedEntity);
         return productMapper.toDomain(savedEntity);
     }
     
