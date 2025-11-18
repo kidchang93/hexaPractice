@@ -31,5 +31,8 @@ data class KTLProductResponse(
                 available = product.isAvailable(),
                 canBeSold = product.canBeSold(),
             )
+
+        fun listFrom(products: List<KTLProduct>): List<KTLProductResponse> =
+            products.map { from(it) }
     }
 }

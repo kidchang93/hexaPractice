@@ -4,6 +4,7 @@ import com.example.hexapractice.application.port.out.KTLDeleteProductPort
 import com.example.hexapractice.application.port.out.KTLLoadProductPort
 import com.example.hexapractice.application.port.out.KTLSaveProductPort
 import com.example.hexapractice.domain.KTLProduct
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 import java.util.Optional
 
@@ -17,13 +18,21 @@ class KTLProductPersistenceAdapter(
 ) : KTLLoadProductPort, KTLSaveProductPort, KTLDeleteProductPort {
 
 
+    /**
+     * 단건 조회 쿼리
+     */
     override fun loadById(id: Long): Optional<KTLProduct> =
         ktlProductJpaRepository.findById(id)
             .map(ktlProductMapper::toDomain)
 
-    override fun loadAll(): List<KTLProduct> {
-        TODO("Not yet implemented")
-    }
+    /**
+     * 모든 메서드 조회 쿼리
+     */
+    override fun loadAll(pageable: Pageable): List<KTLProduct> =
+        ktlProductJpaRepository.findAll(pageable)
+            .content    // Page<KTLProductJPAEntity> 를 반환하므로 content 로 리스트를 추출한 뒤 map 을 적용해야함.
+            .map(ktlProductMapper::toDomain)
+
 
     override fun search(name: String): List<KTLProduct> {
         TODO("Not yet implemented")
@@ -38,7 +47,7 @@ class KTLProductPersistenceAdapter(
 //        return ktlProductMapper.toDomain(savedEntity);
 //    }
     /**
-     * 코틀린 스럽게 바꾸기
+     * 저장 메서드 코틀린 스럽게 바꾸기
      */
     override fun save(product: KTLProduct): KTLProduct =
         ktlProductMapper.toEntity(product)

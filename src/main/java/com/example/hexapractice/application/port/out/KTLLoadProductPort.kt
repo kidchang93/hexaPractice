@@ -1,6 +1,7 @@
 package com.example.hexapractice.application.port.out
 
 import com.example.hexapractice.domain.KTLProduct
+import org.springframework.data.domain.Pageable
 import java.util.Optional
 
 interface KTLLoadProductPort {
@@ -13,7 +14,7 @@ interface KTLLoadProductPort {
     /**
      * 전체 제품 조회
      */
-    fun loadAll(): List<KTLProduct>
+    fun loadAll(pageable: Pageable): List<KTLProduct>
 
     /**
      * 이름으로 제품 검색
