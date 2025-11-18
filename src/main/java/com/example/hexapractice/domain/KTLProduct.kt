@@ -12,7 +12,7 @@ data class KTLProduct(
     val name: String,
     val description: String,
     val price: BigDecimal,
-    val stock: Int
+    val stock: Int,
 ) {
     /**
      * 재고 확인
