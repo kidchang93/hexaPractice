@@ -11,11 +11,26 @@ import org.springframework.stereotype.Component
 @Component
 class KTLProductMapper {
 
+    /**
+     * Entity 를 도메인 객체로 변환
+     */
     fun toDomain(entity: KTLProductJPAEntity) =
         KTLProduct(
             id = entity.id ?: throw IllegalArgumentException("저장된 제품에 ID가 없습니다."),
             name = entity.name,
             description = entity.description ?: throw IllegalArgumentException("제품에 대한 설명이 없습니다."),
+            price = entity.price,
+            stock = entity.stock,
+        )
+
+    /**
+     * 도메인을 JPA 객체로 변환
+     */
+    fun toEntity(entity: KTLProduct) =
+        KTLProductJPAEntity(
+            id = entity.id.takeIf { it != 0L }, // OL이면 nul 변환
+            name = entity.name,
+            description = entity.description,
             price = entity.price,
             stock = entity.stock,
         )
